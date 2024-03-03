@@ -418,7 +418,7 @@ var commentGraph;
   genGraph();
 
  function getLatest() {
-	fetch(`https://latestvideo.imtca.repl.co/${id}`)
+	fetch(`https://latest-video-stats.github.io/latestvideo/${id}`)
 	  .then((res) => res.json())
 	  .then((data) => {
 		vid = data.videoId;
