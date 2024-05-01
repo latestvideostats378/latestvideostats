@@ -149,7 +149,7 @@ body {
               data.apiLikeCount;
               document.getElementById("comments").innerHTML =
               data.apiCommentCount;
-              document.getElementById("thumbnail").src = data.snippet.thumbnails.high.url;
+              document.getElementById("thumbnail").src = data.snippet.thumbnails.maxres.url;
               document.getElementById("title").innerHTML = data.snippet.title;
               document.title = `${name}'s Lastest Video`;
                 });
