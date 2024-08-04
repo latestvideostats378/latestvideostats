@@ -152,7 +152,15 @@ body {
               document.getElementById("thumbnail").src = data.snippet.thumbnails.maxres.url;
               document.getElementById("title").innerHTML = data.snippet.title;
               document.title = `${name}'s Lastest Video`;
+              fetch(
+            `https://returnyoutubedislikeapi.com/votes?videoId=${}`
+          )
+            .then((res) => res.json())
+            .then((data2) => {
+              document.getElementById("dislikes").innerHTML =
+              data2.dislikes;
                 });
+              });
         }, 2000);
 
         function search() {
