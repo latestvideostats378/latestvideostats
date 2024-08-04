@@ -143,38 +143,45 @@ body {
       <span id="comments" class="odometer">0</span>
       <script>
         const params = new URLSearchParams(window.location.search);
-        const id = params.get("id") || "UCX6OQ3DkcsbYNE6H8uQQuVA";
+const id = params.get("id") || "UCX6OQ3DkcsbYNE6H8uQQuVA";
 
-        setInterval(() => {
-          fetch(
+setInterval(() => {
+    fetch(
             `https://axern.space/api/get?platform=youtube&type=video&id=${id}`
-          )
-            .then((res) => res.json())
-            .then((data) => {
-              name = data.snippet.channelTitle
-                  document.getElementById("views").innerHTML =
-                    data.estViewCount;
-              document.getElementById("apiView").innerHTML =
-              data.apiViewCount;
-              document.getElementById("likes").innerHTML =
-              data.apiLikeCount;
-              document.getElementById("comments").innerHTML =
-              data.apiCommentCount;
-              document.getElementById("thumbnail").src = data.snippet.thumbnails.maxres.url;
-              document.getElementById("title").innerHTML = data.snippet.title;
-              document.title = `${name}'s Lastest Video`;
-              const regex = /\/vi\/([a-zA-Z0-9_-]{11})\//;
-                const match = data.snippet.thumbnails.maxres.url.match(regex);
-              fetch(
-            `https://returnyoutubedislikeapi.com/votes?videoId=${match[0]}`
-          )
-            .then((res) => res.json())
-            .then((data2) => {
-              document.getElementById("dislikes").innerHTML =
-              data2.dislikes;
-                });
-              });
-        }, 2000);
+        )
+        .then((res) => res.json())
+        .then((data) => {
+            name = data.snippet.channelTitle;
+            document.getElementById("views").innerHTML =
+                data.estViewCount;
+            document.getElementById("apiView").innerHTML =
+                data.apiViewCount;
+            document.getElementById("likes").innerHTML =
+                data.apiLikeCount;
+            document.getElementById("comments").innerHTML =
+                data.apiCommentCount;
+            document.getElementById("thumbnail").src = data.snippet.thumbnails.maxres.url;
+            document.getElementById("title").innerHTML = data.snippet.title;
+            document.title = `${name}'s Latest Video`;
+
+            // Corrected regex usage
+            const regex = /\/vi\/([a-zA-Z0-9_-]{11})\//;
+            const match = data.snippet.thumbnails.maxres.url.match(regex);
+
+            if (match) {
+                const videoId = match[1]; // Use match[1] to get the video ID
+                fetch(
+                        `https://returnyoutubedislikeapi.com/votes?videoId=${videoId}`
+                    )
+                    .then((res) => res.json())
+                    .then((data2) => {
+                        document.getElementById("dislikes").innerHTML =
+                            data2.dislikes;
+                    });
+            }
+        });
+}, 2000);
+
 
         function search() {
           const prompt = window.prompt("Enter channel name, ID, or URL.");
