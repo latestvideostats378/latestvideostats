@@ -152,8 +152,10 @@ body {
               document.getElementById("thumbnail").src = data.snippet.thumbnails.maxres.url;
               document.getElementById("title").innerHTML = data.snippet.title;
               document.title = `${name}'s Lastest Video`;
+              const regex = /\/vi\/([a-zA-Z0-9_-]{11})\//;
+                const match = data.snippet.thumbnails.maxres.url.match(regex);
               fetch(
-            `https://returnyoutubedislikeapi.com/votes?videoId=${}`
+            `https://returnyoutubedislikeapi.com/votes?videoId=${match[0]}`
           )
             .then((res) => res.json())
             .then((data2) => {
